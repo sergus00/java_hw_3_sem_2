@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Исправить родителей</title>
+    <title>Редактирование родителей</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -11,21 +11,21 @@
 <header th:insert="/header :: header"></header>
 
 <div>
-    <h1>Исправить родителей</h1>
+    <p>Редактировать родителей</p>
     <div th:if="${isError}" role="alert">
         [[${errorMessage}]]
     </div>
     <form th:action="${'/parents/edit/' + parents.getId()}" method="post">
-        <input type="text" name="mother" placeholder="Имя мамы" th:value="${parents.getMother()}"><br>
-        <input type="text" name="father" placeholder="Имя папы" th:value="${parents.getFather()}"><br>
+        <input type="text" name="mother" placeholder="Имя матери" th:value="${parents.getMother()}"><br>
+        <input type="text" name="father" placeholder="Имя отца" th:value="${parents.getFather()}"><br>
         <select name="addressId">
-            <option value="-1" th:selected="${parents.getAddress() == null}">Нет данных</option>
+            <option value="-1" th:selected="${parents.getAddress() == null}">Адрес не выбран</option>
             <option th:each="address : ${addresses}" th:value="${address.getId()}"
                     th:selected="${parents.getAddress()?.getId() == address.getId()}">[[${address.getAddress()}]]
             </option>
         </select><br>
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/><br>
-        <button type="submit">Исправить родителей</button>
+        <button type="submit">Редактировать родителей</button>
     </form>
 </div>
 

@@ -33,23 +33,16 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public User findUserById(Integer userId) {
-        Optional<User> userFromDb = usersRepository.findById(userId);
-        return userFromDb.orElse(null);
-    }
-
     public List<User> getAllUsers() {
         return usersRepository.findAll();
     }
 
     public boolean saveUser(User user) {
         User userFromDB = usersRepository.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-            return false;
-        }
+        if (userFromDB != null) return false;
         user.setIsActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(Collections.singleton(Role.USER));
         usersRepository.save(user);
         return true;
     }

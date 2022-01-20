@@ -23,11 +23,13 @@ public class ChildService {
         this.schoolService = schoolService;
     }
 
+    public Child getById(Integer id) {
+        return childrenRepository.findById(id).orElse(null);
+    }
+
     public Child addChild(Child child, Integer parentsId) {
         Parents parents = parentsService.GetById(parentsId);
-        if (parents == null) {
-            return null;
-        }
+        if (parents == null) return null;
         child.setParents(parents);
         childrenRepository.save(child);
         return child;
@@ -35,10 +37,6 @@ public class ChildService {
 
     public List<Child> getAllChildren() {
         return childrenRepository.findAll();
-    }
-
-    public Child getById(Integer id) {
-        return childrenRepository.findById(id).orElse(null);
     }
 
     public List<School> getSchool(Child child) {
@@ -54,16 +52,11 @@ public class ChildService {
 
     public boolean setSchool(Integer childId, Integer schoolId) {
         Child child = this.getById(childId);
-        if (child == null) {
-            return false;
-        }
-        if (schoolId == -1) {
-            child.setSchool(null);
-        } else {
+        if (child == null) return false;
+        if (schoolId == -1) child.setSchool(null);
+        else {
             School school = schoolService.getById(schoolId);
-            if (school == null) {
-                return false;
-            }
+            if (school == null) return false;
             child.setSchool(school);
         }
         childrenRepository.save(child);

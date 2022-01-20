@@ -18,27 +18,20 @@ public class ParentsService {
         this.addressService = addressService;
     }
 
-    public Parents AddOrUpdateParents(Parents parents) {
-        parentsRepository.save(parents);
-        return parents;
-    }
-
-    public Parents addOrUpdateParents(Parents parents, Integer addressId) {
-        if (addressId != -1) {
-            Address address = addressService.getById(addressId);
-            if (address != null) {
-                parents.setAddress(address);
-            }
-        }
-        parentsRepository.save(parents);
-        return parents;
-    }
-
     public List<Parents> GetAllParents() {
         return parentsRepository.findAll();
     }
 
     public Parents GetById(Integer id) {
         return parentsRepository.getById(id);
+    }
+
+    public Parents addOrUpdateParents(Parents parents, Integer addressId) {
+        if (addressId != -1) {
+            Address address = addressService.getById(addressId);
+            if (address != null) parents.setAddress(address);
+        }
+        parentsRepository.save(parents);
+        return parents;
     }
 }

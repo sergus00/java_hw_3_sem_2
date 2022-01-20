@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Dz2</title>
+    <title>Регистрация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<a href="/login">Войти</a>
 <p>Регистрация</p>
-<div th:if="${message}">
-    [[${message}]]
-</div>
+<div th:if="${message}">[[${message}]]</div>
 <form th:action="@{/register}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><input type="text" name="username" placeholder="Логин"/></div>
+    <div><input type="password" name="password" placeholder="Пароль"/></div>
     <div><input type="submit" value="register"/></div>
 </form>
 </body>

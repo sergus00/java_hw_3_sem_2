@@ -29,13 +29,13 @@ public class ParentsController {
 
     @GetMapping("/parents/add")
     public String getAddParents(Model model) {
-        model.addAttribute("addresses", addressService.getAllAddresses());
+        model.addAttribute("addresses", addressService.getAddresses());
         return "parents/addParents";
     }
 
     @GetMapping("/parents/edit/{id}")
     public String getEditParents(@PathVariable(value = "id") Integer id, Model model) {
-        model.addAttribute("addresses", addressService.getAllAddresses());
+        model.addAttribute("addresses", addressService.getAddresses());
         model.addAttribute("parents", parentsService.GetById(id));
         return "parents/editParents";
     }
@@ -44,8 +44,8 @@ public class ParentsController {
     public String postAddParents(Parents parents, Integer addressId, Model model) {
         if (Objects.equals(parents.getMother(), null) && Objects.equals(parents.getFather(), null)) {
             model.addAttribute("isError", true);
-            model.addAttribute("errorMessage", "Нужно записать хотя бы одного родителя");
-            model.addAttribute("addresses", addressService.getAllAddresses());
+            model.addAttribute("errorMessage", "Нужно ввести хотя бы одного родителя");
+            model.addAttribute("addresses", addressService.getAddresses());
             return "parents/addParents";
         }
         parentsService.addOrUpdateParents(parents, addressId);
@@ -56,8 +56,8 @@ public class ParentsController {
     public String postEditParents(Parents parents, Integer addressId, Model model) {
         if (Objects.equals(parents.getMother(), null) && Objects.equals(parents.getFather(), null)) {
             model.addAttribute("isError", true);
-            model.addAttribute("errorMessage", "Нужно записать хотя бы одного родителя");
-            model.addAttribute("addresses", addressService.getAllAddresses());
+            model.addAttribute("errorMessage", "Нужно ввести хотя бы одного родителя");
+            model.addAttribute("addresses", addressService.getAddresses());
             return "parents/editParents";
         }
         parentsService.addOrUpdateParents(parents, addressId);

@@ -14,7 +14,7 @@ public class Parents {
     private String mother;
     private String father;
     @OneToMany(mappedBy = "parents", cascade = CascadeType.ALL)
-    private List<Child> children = new ArrayList<Child>(); // TODO Может и не надо new
+    private List<Child> children = new ArrayList<>(); // TODO Может и не надо new
     @ManyToOne
     @JoinColumn(name = "addressId")
     private Address address;
@@ -39,28 +39,16 @@ public class Parents {
         return mother;
     }
 
-//    public void setMother(String mother) {
-//        this.mother = mother;
-//    }
-
     public void setMother(String mother) {
-        if (!Objects.equals(mother, "")) {
-            this.mother = mother;
-        }
+        if (!mother.equals("")) this.mother = mother;
     }
 
     public String getFather() {
         return father;
     }
 
-//    public void setFather(String father) {
-//        this.father = father;
-//    }
-
     public void setFather(String father) {
-        if (!Objects.equals(father, "")) {
-            this.father = father;
-        }
+        if (!father.equals("")) this.father = father;
     }
 
     public List<Child> getChildren() {

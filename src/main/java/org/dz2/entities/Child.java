@@ -12,7 +12,7 @@ public class Child {
     @JoinColumn(name = "parentsId")
     private Parents parents;
     private String name;
-    private int age;
+    private Integer age;
     @ManyToOne
     @JoinColumn(name = "schoolId")
     private School school;
@@ -54,8 +54,8 @@ public class Child {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(Integer age) {
+        if(age > 0) this.age = age;
     }
 
     public School getSchool() {

@@ -15,7 +15,7 @@ public class AddressService {
         this.addressesRepository = addressesRepository;
     }
 
-    public List<Address> getAllAddresses() {
+    public List<Address> getAddresses() {
         return addressesRepository.findAll();
     }
 

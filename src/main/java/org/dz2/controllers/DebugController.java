@@ -25,9 +25,7 @@ public class DebugController {
     public String deleteUser(@RequestParam(required = true, defaultValue = "") Integer userId,
                              @RequestParam(required = true, defaultValue = "") String action,
                              Model model) {
-        if (action.equals("delete")) {
-            userService.deleteUser(userId);
-        }
+        if (action.equals("delete")) userService.deleteUser(userId);
         return "redirect:/admin";
     }
 }

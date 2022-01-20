@@ -42,9 +42,7 @@ public class ChildrenController {
     @GetMapping("/children/{id}")
     public String child(@PathVariable(value = "id") Integer id, Model model) {
         Child child = childService.getById(id);
-        if (child == null) {
-            return "redirect:/parents";
-        }
+        if (child == null) return "redirect:/parents";
         model.addAttribute("child", child);
         model.addAttribute("school", childService.getSchool(child));
         return "children/child";
@@ -60,7 +58,7 @@ public class ChildrenController {
         }
         if (!childService.setSchool(id, schoolId)) {
             model.addAttribute("isError", true);
-            model.addAttribute("errorMessage", "Не удалось записать в учебное заведение");
+            model.addAttribute("errorMessage", "Не удалось записать в школу");
             return "children/child";
         }
         return "redirect:/parents";

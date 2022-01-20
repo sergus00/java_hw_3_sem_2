@@ -14,33 +14,40 @@ import java.util.List;
 
 @Configuration
 public class DistrictsConfig {
-    public DistrictsConfig(DistrictsRepository districtsRepository, AddressesRepository addressesRepository, SchoolsRepository schoolsRepository) {
-        if (districtsRepository.count() > 0) return;
+    public DistrictsConfig(DistrictsRepository districtsRepository,
+                           AddressesRepository addressesRepository,
+                           SchoolsRepository schoolsRepository) {
+        if (districtsRepository.count() != 0) return;
 
-        ArrayList<District> districts = new ArrayList<>();
-        districts.add(new District());
-        districts.add(new District());
-        districts.add(new District());
-        districts.add(new District());
-        districtsRepository.saveAll(districts);
+        List<District> districts = new ArrayList<>();
+        List<Address> addresses = new ArrayList<>();
+        List<School> schools = new ArrayList<>();
 
-        int i = 0;
-        List<Address> addresses = new ArrayList<>(25);
-        for (String addressName : new String[]{
+        String[] addressesstr = new String[]{
                 "Pushkin street, Kolotushkin house", "London SW1A 0AA",
                 "20 W 34th St", "Mira street, 19, Ekaterinburg",
                 "8 Marta street, 13, Ekaterinburg", "Vaynera street, 4, Ekaterinburg",
                 "Lenina, 33, Ekaterinburg,", "Red Square, Moscow"
-        }) {
-            Address address = new Address(addressName);
-            addresses.add(address);
-            address.setDistrict(districts.get(i % districts.size()));
-            i++;
-        }
-        addressesRepository.saveAll(addresses);
+        };
 
-        List<School> schools = new ArrayList<>(25);
-        for (i = 0; i < 8; i++) schools.add(new School("School #" + i, addresses.get(i)));
+        int n = 0;
+        for (int i = 0; i < addressesstr.length / 2; i++) {
+            District district = new District();
+            districts.add(district);
+
+            for (int j = 0; j < 2; j++) {
+                Address address = new Address(addressesstr[n]);
+                address.setDistrict(district);
+                addresses.add(address);
+
+                n++;
+                School school = new School("School №" + n, address);
+                schools.add(school);
+            }
+        }
+
+        districtsRepository.saveAll(districts);
+        addressesRepository.saveAll(addresses);
         schoolsRepository.saveAll(schools);
     }
 }
